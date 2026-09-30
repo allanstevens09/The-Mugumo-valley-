@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mugumo Resort — Admin Bookings</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 30px;
+      background: #f5f2eb;
+      color: #222;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      color: #143d2b;
+    }
+
+    .dashboard {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .message {
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .booking {
+      background: white;
+      margin: 15px 0;
+      padding: 20px;
+      border-left: 5px solid #c8a45d;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,.08);
+    }
+
+    .booking p {
+      margin: 8px 0;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #143d2b;
+    }
+
+    button {
+      padding: 10px 18px;
+      border: 0;
+      border-radius: 6px;
+      background: #143d2b;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #c8a45d;
+      color: #111;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="dashboard">
+    <h1>Booking Dashboard</h1>
+
+    <button id="refreshButton">Refresh Bookings</button>
+
+    <div id="message" class="message">Loading bookings...</div>
+    <div id="bookingList"></div>
+  </main>
+<script>
+  const bookingList = document.getElementById("bookingList");
+  const message = document.getElementById("message");
+  const refreshButton = document.getElementById("refreshButton");
+
+  function safe(value) {
+    const div = document.createElement("div");
+    div.textContent = value ?? "";
+    return div.innerHTML;
+  }
+
+  function formatDate(value) {
+    if (!value) return "Not provided";
+
+    return new Date(value).toLocaleDateString("en-KE", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+  }
+
+  // Basic Auth fallback stored in sessionStorage
+  async function getAuthHeader() {
+    let basic = sessionStorage.getItem("mugumo_admin_basic");
+
+    if (!basic) {
+      const user = prompt("Admin username:");
+      const pass = prompt("Admin password:");
+      if (!user || !pass) throw new Error("Credentials required");
+      basic = btoa(user + ":" + pass);
+      sessionStorage.setItem("mugumo_admin_basic", basic);
+    }
+
+    return { Authorization: "Basic " + basic };
+  }
+
+  async function loadBookings() {
+    message.textContent = "Loading bookings...";
+    bookingList.innerHTML = "";
+
+    try {
+      const headers = await getAuthHeader();
+
+      const response = await fetch("/api/bookings", { headers });
+
+      if (response.status === 401) {
+        sessionStorage.removeItem("mugumo_admin_basic");
+        throw new Error("Unauthorized");
+      }
+
+      if (!response.ok) {
+        throw new Error("Could not load bookings");
+      }
+
+      const result = await response.json();
+      const bookings = result.bookings || [];
+
+      if (!bookings.length) {
+        message.textContent = "No bookings yet.";
+        return;
+      }
+
+      message.textContent = `${bookings.length} booking(s) found.`;
+
+      bookings.forEach((booking) => {
+        const item = document.createElement("article");
+        item.className = "booking";
+
+        item.innerHTML = `
+          <p><span class="label">Guest:</span> ${safe(booking.fullName)}</p>
+          <p><span class="label">Email:</span> ${safe(booking.email)}</p>
+          <p><span class="label">Room:</span> ${safe(booking.roomType || "Not selected")}</p>
+          <p><span class="label">Check-in:</span> ${formatDate(booking.dateFrom)}</p>
+          <p><span class="label">Check-out:</span> ${formatDate(booking.dateTo)}</p>
+          <p><span class="label">Requests:</span> ${safe(booking.specialRequests || "None")}</p>
+          <p><span class="label">Priority:</span> ${safe(booking.priority || "normal")}</p>
+          <p><span class="label">Status:</span> ${safe(booking.status || "pending")}</p>
+          <p><span class="label">Received:</span> ${formatDate(booking.createdAt)}</p>
+          <div>
+            <button data-id="${booking.id}" data-status="confirmed">Confirm</button>
+            <button data-id="${booking.id}" data-status="cancelled">Cancel</button>
+          </div>
+        `;
+
+        bookingList.appendChild(item);
+      });
+    } catch (error) {
+      message.textContent = "Unable to load bookings.";
+      console.error(error);
+    }
+  }
+
+  // wire refresh and initial load
+  refreshButton.addEventListener("click", loadBookings);
+  loadBookings();
+
+  // delegated click handler for Confirm / Cancel
+  document.addEventListener("click", async (event) => {
+    const target = event.target.closest("button[data-status]");
+    if (!target) return;
+
+    const id = target.dataset.id;
+    const status = target.dataset.status;
+
+    try {
+      const headers = await getAuthHeader();
+
+      const res = await fetch(`/api/bookings/${id}/status`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...headers
+        },
+        body: JSON.stringify({ status })
+      });
+
+      if (res.status === 401) {
+        sessionStorage.removeItem("mugumo_admin_basic");
+        alert("Unauthorized - please log in again.");
+        return;
+      }
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Failed to update status");
+      }
+
+      alert("Booking status updated.");
+      loadBookings();
+    } catch (err) {
+      console.error(err);
+      alert("Unable to update status.");
+    }
+  });
+</script>
+</body>
+</html>
