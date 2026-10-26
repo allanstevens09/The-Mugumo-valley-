@@ -11,8 +11,8 @@ const { v4: uuidv4 } = require('uuid');
 const PORT = process.env.PORT || 3000;
 const BOOKINGS_FILE = path.join(__dirname, 'bookings.json');
 
-// Your website files must be inside this folder.
-const PUBLIC_DIR = path.join(__dirname, 'public');
+// IMPORTANT: serve the repo root because the website files already live there.
+const PUBLIC_DIR = __dirname;
 
 const app = express();
 
@@ -83,7 +83,6 @@ async function saveBookings(bookings) {
   await fs.writeFile(BOOKINGS_FILE, JSON.stringify(bookings, null, 2), 'utf8');
 }
 
-/* ---------------- Small helper for date overlap ---------------- */
 function safeDate(value) {
   if (!value) return null;
   const d = (value instanceof Date) ? value : new Date(value);
@@ -96,19 +95,14 @@ function hasOverlap(aFrom, aTo, bFrom, bTo) {
   const Bfrom = safeDate(bFrom);
   const Bto = safeDate(bTo);
 
-  // If either booking lacks a date range we can't detect overlap reliably -> treat as no-overlap
   if (!Afrom || !Ato || !Bfrom || !Bto) return false;
-
-  // Overlap if periods intersect
   return Afrom <= Bto && Bfrom <= Ato;
 }
 
-/* ---------------- Serve admin page (browser will prompt for credentials) ---------------- */
 app.get('/admin.html', adminAuth, (req, res) => {
   res.sendFile(path.join(PUBLIC_DIR, 'admin.html'));
 });
 
-/* ---------------- Protected: list bookings ---------------- */
 app.get('/api/bookings', adminAuth, async (req, res) => {
   try {
     const bookings = await readBookings();
@@ -127,7 +121,6 @@ app.get('/api/bookings', adminAuth, async (req, res) => {
   }
 });
 
-/* ---------------- Protected: update booking status ---------------- */
 app.post('/api/bookings/:id/status', adminAuth, async (req, res) => {
   const { status } = req.body;
 
@@ -144,7 +137,6 @@ app.post('/api/bookings/:id/status', adminAuth, async (req, res) => {
     }
 
     bookings[index].status = status;
-
     await saveBookings(bookings);
 
     return res.json({ success: true, booking: bookings[index] });
@@ -154,7 +146,6 @@ app.post('/api/bookings/:id/status', adminAuth, async (req, res) => {
   }
 });
 
-/* ---------------- Availability check + create booking ---------------- */
 app.post(
   '/api/book',
   bookingLimiter,
@@ -190,7 +181,6 @@ app.post(
       priority
     } = req.body;
 
-    // If both dates are provided, ensure dateFrom <= dateTo
     if (dateFrom && dateTo && new Date(dateFrom) > new Date(dateTo)) {
       return res.status(400).json({ success: false, error: 'dateFrom must be before or equal to dateTo' });
     }
@@ -198,10 +188,8 @@ app.post(
     try {
       const bookings = await readBookings();
 
-      // Availability check only if both dates provided
       if (dateFrom && dateTo) {
         const conflicts = bookings.filter((b) => {
-          // ignore cancelled bookings
           if (b.status === 'cancelled') return false;
           if (!b.roomType || b.roomType !== roomType) return false;
           return hasOverlap(b.dateFrom, b.dateTo, dateFrom, dateTo);
@@ -240,11 +228,6 @@ app.post(
   }
 );
 
-/* ---------------- Admin: find customers to remind ----------------
-   GET /api/reminders?days=180
-   Returns list of customers (email, fullName, lastBookingDate)
-   Protected by adminAuth
-*/
 app.get('/api/reminders', adminAuth, async (req, res) => {
   const days = Number(req.query.days || 180);
   if (isNaN(days) || days < 0) {
@@ -256,7 +239,6 @@ app.get('/api/reminders', adminAuth, async (req, res) => {
     const now = Date.now();
     const cutoff = now - days * 24 * 60 * 60 * 1000;
 
-    // group by email, find latest booking date (use dateTo if present else createdAt)
     const byEmail = bookings.reduce((acc, b) => {
       const email = (b.email || '').toLowerCase();
       if (!email) return acc;
@@ -283,12 +265,6 @@ app.get('/api/reminders', adminAuth, async (req, res) => {
   }
 });
 
-/* ---------------- Admin: send reminders (simulated) ----------------
-   POST /api/reminders/send
-   body: { days?: number, message?: string }
-   Protected by adminAuth
-   This will log a simulated send for each customer and tag their bookings with lastReminderAt
-*/
 app.post('/api/reminders/send', adminAuth, async (req, res) => {
   const days = Number(req.body.days || 180);
   const message = String(req.body.message || 'We miss you at Mugumo Valley Resort — come back for a special offer!');
@@ -302,7 +278,6 @@ app.post('/api/reminders/send', adminAuth, async (req, res) => {
     const now = Date.now();
     const cutoff = now - days * 24 * 60 * 60 * 1000;
 
-    // find last booking per email
     const byEmail = bookings.reduce((acc, b) => {
       const email = (b.email || '').toLowerCase();
       if (!email) return acc;
@@ -315,16 +290,12 @@ app.post('/api/reminders/send', adminAuth, async (req, res) => {
     }, {});
 
     const toRemind = Object.values(byEmail).filter(u => u.latest.getTime() <= cutoff);
-
-    // simulate sends and mark bookings (set lastReminderAt on bookings for that email)
     const reminderTime = new Date().toISOString();
     const emailResults = [];
 
     for (const user of toRemind) {
-      // Simulate sending (replace with real email provider integration)
       console.log(`Simulated reminder send to ${user.email} (${user.fullName}) — message: ${message}`);
 
-      // Mark lastReminderAt on all bookings for that email
       bookings.forEach((b) => {
         if ((b.email || '').toLowerCase() === user.email) {
           b.lastReminderAt = reminderTime;
@@ -335,7 +306,6 @@ app.post('/api/reminders/send', adminAuth, async (req, res) => {
     }
 
     await saveBookings(bookings);
-
     res.json({ success: true, count: emailResults.length, results: emailResults });
   } catch (error) {
     console.error('Failed to send reminders:', error);
@@ -343,7 +313,6 @@ app.post('/api/reminders/send', adminAuth, async (req, res) => {
   }
 });
 
-/* ---------------- Front page / fallback ---------------- */
 app.get('/', (req, res) => {
   res.sendFile(path.join(PUBLIC_DIR, 'index.html'));
 });
