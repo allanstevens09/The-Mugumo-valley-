@@ -9,7 +9,6 @@
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const hasGSAP = !!window.gsap;
 
-  /* ---------------- Loader ---------------- */
   function initLoader() {
     const loader = document.getElementById("loader");
     if (!loader) return;
@@ -21,7 +20,6 @@
     });
   }
 
-  /* ---------------- Scroll reveal ---------------- */
   function initReveal() {
     const sections = document.querySelectorAll(".reveal");
     if (!sections.length) return;
@@ -32,7 +30,6 @@
     sections.forEach((s) => io.observe(s));
   }
 
-  /* ---------------- Progress bar ---------------- */
   function initProgressBar() {
     const bar = document.getElementById("progress-bar");
     if (!bar) return;
@@ -45,7 +42,6 @@
     update();
   }
 
-  /* ---------------- Hero parallax (desktop pointer only) ---------------- */
   function initParallax() {
     const hero = document.querySelector(".hero");
     if (!hero || !window.matchMedia("(min-width:800px) and (hover:hover)").matches) return;
@@ -57,7 +53,6 @@
     hero.addEventListener("mouseleave", () => { hero.style.backgroundPosition = "center center"; });
   }
 
-  /* ---------------- Navbar hide-on-scroll ---------------- */
   function initNavbarScroll() {
     const navbar = document.querySelector(".navbar");
     if (!navbar) return;
@@ -72,7 +67,6 @@
     }, { passive: true });
   }
 
-  /* ---------------- Mobile hamburger menu ---------------- */
   function initHamburger() {
     const btn = document.getElementById("hamburger");
     const menu = document.getElementById("primary-menu");
@@ -89,7 +83,6 @@
     );
   }
 
-  /* ---------------- Gallery lightbox ---------------- */
   function initLightbox() {
     const galleryImgs = document.querySelectorAll(".gallery-container img, .gallery-item img");
     const lightbox = document.getElementById("lightbox");
@@ -120,7 +113,6 @@
     window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLB(); });
   }
 
-  /* ---------------- Animated counters (trigger once, when visible) ---------------- */
   function initCounters() {
     const counters = document.querySelectorAll(".counter");
     if (!counters.length) return;
@@ -146,7 +138,6 @@
     counters.forEach((c) => io.observe(c));
   }
 
-  /* ---------------- Back to top ---------------- */
   function initTopButton() {
     const topBtn = document.getElementById("topBtn");
     if (!topBtn) return;
@@ -156,7 +147,6 @@
     topBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
   }
 
-  /* ---------------- Cursor glow (pointer devices only) ---------------- */
   function initCursorGlow() {
     const glow = document.querySelector(".cursor-glow");
     if (!glow || !window.matchMedia("(hover:hover)").matches) return;
@@ -166,29 +156,31 @@
     });
   }
 
-  /* ---------------- Booking form (AJAX) ---------------- */
   function initBookingForm() {
     const bookingForm = document.getElementById("bookingForm");
     if (!bookingForm) return;
     bookingForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!bookingForm.checkValidity()) {
-  bookingForm.reportValidity();
-  return;
-}
+        bookingForm.reportValidity();
+        return;
+      }
+
       const data = {
         fullName: bookingForm.fullName.value.trim(),
         email: bookingForm.email.value.trim(),
-        roomType:bookingForm.roomType.value,
+        roomType: bookingForm.roomType.value,
         dateFrom: bookingForm.dateFrom.value,
         dateTo: bookingForm.dateTo.value,
         specialRequests: bookingForm.specialRequests.value.trim(),
-         
       };
+
       const submitBtn = bookingForm.querySelector('button[type="submit"]');
       const originalText = submitBtn ? submitBtn.innerText : "Book Now";
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.innerText = "Sending..."; 
-        }
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Sending...";
+      }
 
       try {
         const API_BASE = window.API_BASE_URL || "";
@@ -209,12 +201,14 @@
         console.error(err);
         alert("Network error — please try again later.");
       } finally {
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = originalText; }
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerText = originalText;
+        }
       }
     });
   }
 
-  /* ---------------- Ambient particles ---------------- */
   function initParticles() {
     const container = document.getElementById("particles");
     if (!container || prefersReduced) return;
@@ -235,7 +229,6 @@
     container.appendChild(frag);
   }
 
-  /* ---------------- GSAP hero intro ---------------- */
   function initHeroMotion() {
     if (!hasGSAP || prefersReduced) return;
     gsap.from(".hero-content > *", { y: 18, opacity: 0, stagger: 0.08, duration: 0.7, ease: "power2.out", delay: 0.3 });
@@ -244,7 +237,6 @@
     });
   }
 
-  /* ---------------- Init everything ---------------- */
   function initAll() {
     initLoader();
     initReveal();

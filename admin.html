@@ -94,7 +94,6 @@
     });
   }
 
-  // Basic Auth fallback stored in sessionStorage
   async function getAuthHeader() {
     let basic = sessionStorage.getItem("mugumo_admin_basic");
 
@@ -115,7 +114,6 @@
 
     try {
       const headers = await getAuthHeader();
-
       const response = await fetch("/api/bookings", { headers });
 
       if (response.status === 401) {
@@ -165,11 +163,9 @@
     }
   }
 
-  // wire refresh and initial load
   refreshButton.addEventListener("click", loadBookings);
   loadBookings();
 
-  // delegated click handler for Confirm / Cancel
   document.addEventListener("click", async (event) => {
     const target = event.target.closest("button[data-status]");
     if (!target) return;
