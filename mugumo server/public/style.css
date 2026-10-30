@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Mugumo Valley Resort — Home</title>
+  <meta name="description" content="The Mugumo Valley Resort — Luxury accommodation, dining and events in Kenya" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous">
+
+  <link rel="preload" as="image" href="/edited/unnamed.webp">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="loader">
+    <div class="loader-content">
+      <h1>The Mugumo Valley Resort</h1>
+      <p>Luxury ◈ Comfort ◈ Nature</p>
+    </div>
+  </div>
+  <div id="particles"></div>
+  <div class="progress-bar" id="progress-bar"></div>
+
+  <header id="home">
+    <div class="cursor-glow" aria-hidden="true"></div>
+
+    <nav class="navbar" role="navigation" aria-label="Main">
+      <a class="logo" href="/index.html#home">
+        <img src="/edited/Screenshot_20260728-102107.jpg" alt="Mugumo Valley Resort logo">
+        The Mugumo Valley Resort
+      </a>
+
+      <ul class="nav-links" id="primary-menu">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="/accommodation.html">Accommodation</a></li>
+        <li><a href="/dining.html">Dining</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <a href="#contact" class="book-btn">Book Now</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Experience Luxury at <span>The Mugumo Valley Resort</span></h1>
+        <p>
+          Discover elegant accommodation, exceptional dining, breathtaking scenery,
+          and warm hospitality at The Mugumo Valley Resort.
+          Every stay is designed to create unforgettable memories.
+        </p>
+        <div class="hero-buttons">
+          <a href="#contact" class="hero-btn">Book Your Stay</a>
+          <a href="#services" class="hero-btn2">Explore Resort</a>
+        </div>
+
+        <div class="hero-stats">
+          <div>
+            <h2 class="counter" data-target="2500">0</h2>
+            <p>Happy Guests</p>
+          </div>
+          <div>
+            <h3 class="counter" data-target="40">0</h3>
+            <p>Luxury Rooms</p>
+          </div>
+          <div>
+            <h3 class="counter" data-target="15">0</h3>
+            <p>Years of Hospitality</p>
+          </div>
+          <div>
+            <h2 class="counter" data-target="120">0</h2>
+            <p>Events Hosted</p>
+          </div>
+        </div>
+      </div>
+      <div class="wave-divider">
+        <svg viewBox="0 0 1440 160" preserveAspectRatio="none">
+          <path d="M0,64L60,74.7C120,85,240,107,360,106.7C480,107,600,85,720,69.3C840,53,960,43,1080,53.3C1200,64,1320,112,1440,128L1440,160L0,160Z"></path>
+        </svg>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="about-image">
+        <img src="/edited/1785222922119.jpg" alt="The Mugumo Resort">
+      </div>
+      <div class="about-text">
+        <p class="section-subtitle">WELCOME TO PARADISE</p>
+        <h2>Discover <span>Mugumo Valley</span></h2>
+        <p class="section-description">An idyllic retreat that balances refined comfort with the timeless beauty of nature. Whether for a romantic getaway, family holiday or event, we offer a memorable experience in a serene setting.</p>
+        <div class="features">
+          <div>✔ Luxury Rooms</div>
+          <div>✔ Restaurant &amp; Dining</div>
+          <div>✔ Conference Facilities</div>
+          <div>✔ Swimming Pool</div>
+        </div>
+        <a href="/accommodation.html" class="about-btn">Discover More</a>
+      </div>
+    </section>
+
+    <section class="featured-accommodation reveal">
+      <h2>Luxury Accommodation</h2>
+      <p>Discover elegant rooms designed for comfort, relaxation and unforgettable stays.</p>
+      <a href="/accommodation.html" class="btn">Explore All Rooms</a>
+    </section>
+
+    <section class="services section reveal" id="services">
+      <div class="section-header">
+        <p class="section-subtitle">OUR EXPERIENCES</p>
+        <h2>Exceptional <span>Services</span></h2>
+        <p class="section-description">Every moment at Mugumo Valley Resort is designed to offer comfort, elegance and unforgettable memories.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🛏️</div>
+          <h3>Luxury Accommodation</h3>
+          <p>Spacious rooms surrounded by breathtaking scenery.</p>
+          <a href="/accommodation.html" class="book-btn">Discover →</a>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🍽️</div>
+          <h3>Fine Dining</h3>
+          <p>Freshly prepared meals inspired by local and international cuisine.</p>
+          <a href="/dining.html" class="book-btn">Explore →</a>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">💍</div>
+          <h3>Events &amp; Weddings</h3>
+          <p>Beautiful gardens and elegant venues for your unforgettable celebrations.</p>
+          <a href="#contact" class="book-btn">Learn More →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="booking-banner reveal">
+      <div class="booking-content">
+        <h2>Your Perfect <span>Getaway</span> Awaits</h2>
+        <p>Experience comfort, nature and exceptional hospitality at The Mugumo Valley Resort.</p>
+        <div class="booking-buttons">
+          <a href="#contact" class="btn">Reserve Now</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery reveal" id="gallery">
+      <div class="section-header">
+        <p class="section-subtitle">A GLIMPSE INSIDE</p>
+        <h2>Resort <span>Gallery</span></h2>
+      </div>
+      <div class="gallery-container">
+        <div class="gallery-item"><img src="/edited/unnamed.webp" alt="Resort view" loading="lazy"></div>
+        <div class="gallery-item"><img src="/edited/file_00000000a0f881fd9708258d22f1a1f7.png" alt="Luxury room" loading="lazy"></div>
+        <div class="gallery-item"><img src="/edited/1785222959020.jpg" alt="Restaurant" loading="lazy"></div>
+        <div class="gallery-item"><img src="/edited/1785222922119.jpg" alt="Swimming Pool" loading="lazy"></div>
+        <div class="gallery-item"><img src="/edited/file_00000000691881f89fbd27068529e341.png" alt="Mugumo Nature" loading="lazy"></div>
+        <div class="gallery-item"><img src="/edited/1785222922804.jpg" alt="Mugumo Nature" loading="lazy"></div>
+        <div class="gallery-item"><img src="/edited/1785222980287.jpg" alt="Mugumo Nature" loading="lazy"></div>
+        <div class="gallery-item"><img src="/edited/file_00000000272081fd8c3d6d965c5b4c8c.png" alt="Gardens" loading="lazy"></div>
+        <div class="gallery-item"><img src="/edited/images (1).jpg" alt="Gardens" loading="lazy"></div>
+        <div class="gallery-item"><img src="/edited/dd02bd43 (1).jpg" alt="Gardens" loading="lazy"></div>
+        <div class="gallery-item"><img src="/edited/home3.jpg" alt="Rooms" loading="lazy"></div>
+        <div class="gallery-item"><img src="/edited/1785222955127.jpg" alt="Bedrooms" loading="lazy"></div>
+        <div class="gallery-item"><img src="/edited/file_00000000f1cc8246b53b65d5c7db8e79%20(2).png" alt="Bedrooms" loading="lazy"></div>
+        <div class="gallery-item"><img src="/edited/1785222934347.jpg" alt="Gardens" loading="lazy"></div>
+      </div>
+    </section>
+
+    <section id="location" class="reveal">
+      <h2>Find Us</h2>
+      <iframe src="https://maps.google.com/maps?q=Mugumo%20Valley%20Resort%2C%20Thika%2C%20Kenya&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mugumo Valley Resort location"></iframe>
+    </section>
+
+    <section id="contact" class="contact reveal">
+      <div class="contact-info">
+        <h2>Contact</h2>
+        <p>📍 Mugumo Valley Resort, Kenya</p>
+        <p>📞 +254 759 261 059</p>
+        <p>✉️ mugumovalleyresort@gmail.com</p>
+        <a class="whatsapp" href="https://wa.me/254759261059" target="_blank" rel="noopener">
+          <img src="/edited/Screenshot_20260728-103535.jpg" alt="WhatsApp Us">
+        </a>
+      </div>
+
+      <div class="contact-form" aria-labelledby="booking-form-title">
+        <h3 id="booking-form-title">Book Your Stay</h3>
+        <form id="bookingForm" action="#" method="POST" novalidate>
+          <input type="text" id="fullName" name="fullName" placeholder="Full Name" required>
+          <input type="email" id="email" name="email" placeholder="Email Address" required>
+          <div class="date-row">
+            <input type="date" id="dateFrom" name="dateFrom" required>
+            <input type="date" id="dateTo" name="dateTo" required>
+          </div>
+          <label for="roomType">Choose a room</label>
+          <select id="roomType" name="roomType" required>
+            <option value="">Select a room</option>
+            <option value="Deluxe Garden Room">Deluxe Garden Room</option>
+            <option value="Executive Suite">Executive Suite</option>
+            <option value="Family Suite">Family Suite</option>
+            <option value="Royal Valley Villa">Royal Valley Villa</option>
+            <option value="Cabana Retreat">Cabana Retreat</option>
+          </select>
+          <textarea id="specialRequests" name="specialRequests" placeholder="Special Requests"></textarea>
+          <button type="submit" class="btn">Book Now</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-social">
+      <h4>Follow Us</h4>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/254759261059" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+
+    <h3>The Mugumo Valley Resort</h3>
+    <p>Luxury • Comfort • Nature</p>
+    <p>&copy; 2026 The Mugumo Valley Resort. All Rights Reserved</p>
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image preview">
+    <button class="close" aria-label="Close">×</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <button id="topBtn" title="Back to top" aria-label="Back to top">↑</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+  <script src="/script.js"></script>
+</body>
+</html>

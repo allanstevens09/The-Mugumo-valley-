@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dining | The Mugumo Valley Resort</title>
+  <meta name="description" content="Dining at The Mugumo Valley Resort — seasonal menus and signature tasting experiences." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="progress-bar"></div>
+
+  <header id="home">
+    <nav class="navbar" role="navigation" aria-label="Main">
+      <a class="logo" href="/index.html#home">
+        <img src="/edited/Screenshot_20260728-102107.jpg" alt="Mugumo Valley Resort logo">
+        The Mugumo Valley Resort
+      </a>
+
+      <ul class="nav-links" id="primary-menu">
+        <li><a href="/index.html#home">Home</a></li>
+        <li><a href="/index.html#about">About</a></li>
+        <li><a href="/accommodation.html">Accommodation</a></li>
+        <li><a href="/dining.html" class="active">Dining</a></li>
+        <li><a href="/index.html#gallery">Gallery</a></li>
+        <li><a href="/index.html#contact">Contact</a></li>
+      </ul>
+      <a href="/index.html#contact" class="book-btn">Reserve</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="dining-hero" aria-labelledby="dining-title">
+      <div class="hero-content">
+        <p class="hero-subtitle">FINE DINING ◈ LOCAL FLAVORS</p>
+        <h1 id="dining-title">Dining at <span>Mugumo Valley</span></h1>
+        <p class="hero-description">Savour seasonal dishes crafted by our chefs using fresh local ingredients. From relaxed breakfasts to intimate dinners, our menus are designed to delight.</p>
+        <div class="hero-buttons">
+          <a href="#menus" class="btn">View Menus</a>
+          <a href="/index.html#contact" class="hero-btn2">Reserve a Table</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="menus" style="padding:100px var(--pad)">
+      <div class="section-header">
+        <p class="section-subtitle">OUR OFFERINGS</p>
+        <h2>Exceptional <span>Menus</span></h2>
+        <p class="section-description">From farm-to-table breakfasts to curated tasting dinners — discover culinary experiences for every occasion.</p>
+      </div>
+
+      <div class="preview-grid">
+        <article class="preview-card">
+          <img src="/edited/1785222959020.jpg" alt="Breakfast offering" loading="lazy">
+          <div class="preview-content">
+            <h3>Breakfast &amp; Brunch</h3>
+            <p>Start your day with freshly baked goods, hearty local breakfasts and premium coffee.</p>
+          </div>
+        </article>
+
+        <article class="preview-card">
+          <img src="/edited/1785222922119.jpg" alt="Main dining" loading="lazy">
+          <div class="preview-content">
+            <h3>Main Restaurant</h3>
+            <p>A la carte menu featuring African specialties and international cuisine, with wine pairings.</p>
+          </div>
+        </article>
+
+        <article class="preview-card">
+          <img src="/edited/1785222934347.jpg" alt="Private dining" loading="lazy">
+          <div class="preview-content">
+            <h3>Private Dining &amp; Events</h3>
+            <p>Tailored menus and bespoke service for events and celebrations.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reveal" style="padding:0 var(--pad) 100px">
+      <div class="section-header">
+        <h2>Signature <span>Tasting Menu</span></h2>
+        <p class="section-description">A multi-course experience showcasing the best of Mugumo Valley's flavors.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Chef's Selection</h3>
+          <p>5-course or 7-course options with wine pairing available. Please reserve in advance.</p>
+          <a href="/index.html#contact" class="btn">Reserve →</a>
+        </div>
+
+        <div class="service-card">
+          <h3>Private Tasting</h3>
+          <p>An intimate table for up to 10 guests with a bespoke menu and dedicated sommelier.</p>
+          <a href="/index.html#contact" class="btn">Enquire →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-social">
+      <h4>Follow Us</h4>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/254759261059" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+    <h3>The Mugumo Valley Resort</h3>
+    <p>Luxury • Comfort • Nature</p>
+    <p>&copy; 2026 The Mugumo Valley Resort. All Rights Reserved</p>
+  </footer>
+
+  <button id="topBtn" title="Back to top" aria-label="Back to top">↑</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+  <script src="/script.js"></script>
+</body>
+</html>
